@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: 'AWS Budget Alert StackSet with SNS Notification'
-
+Description: 'AWS Budget Alert Stack Set with SNS Notification'
+ 
 Resources:
   Budget:
     Type: 'AWS::Budgets::Budget'
@@ -45,7 +45,7 @@ Resources:
           Subscribers:
             - SubscriptionType: 'SNS'
               Address: !Ref SNSTopic
-
+ 
   SNSTopic:
     Type: 'AWS::SNS::Topic'
     Properties:
@@ -55,6 +55,20 @@ Resources:
         - Protocol: 'email'
           Endpoint: 'myemail@mydomain.com'
 
+  SNSTopicPolicy:
+    Type: 'AWS::SNS::TopicPolicy'
+    Properties:
+      Topics:
+        - !Ref SNSTopic
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: 'Allow'
+            Principal:
+              Service: 'budgets.amazonaws.com'
+            Action: 'sns:Publish'
+            Resource: !Ref SNSTopic
+ 
 Outputs:
   BudgetName:
     Description: 'The name of the created budget'
