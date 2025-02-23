@@ -1,6 +1,6 @@
 ﻿This is an implementation of a CloudFormation Template that creates budget alerts and a SNS topic with an email address subscribed to the budget alerts.
 
-Refer to the Article 
+Refer to the Article https://www.karunsblog.com/how-to-use-cloudformation-stacksets-for-creating-aws-budget-alerts/
 
 MIT License
 
